@@ -15,7 +15,20 @@ app.get("/:idPotvrde", async function(req, res) {
 
   let potvrda = await db.zahtjevZaPotvrdu.findOne({ where: { id: req.params.idPotvrde} });
   let svrha = await db.svrha.findOne({ where: { id: potvrda.idSvrhe } });
-  let stud = await db.korisnik.findOne({where: { id: potvrda.idstuda }});
+  let stud = await db.korisnik.findOne({where: { id: potvrda.idStudenta }});
+  let odsjek = await db.odsjek.findOne({where: { id: stud.idOdsjek }});
+  let tip;
+  switch(stud.ciklus)
+  {
+    case 1:
+        tip='BSc';
+        break;
+    case 2:
+        tip='MSc';
+        break;
+    default:
+        tip='DSc';
+  }
   let odgovor = {
     student: {
       ime: stud.ime,
@@ -33,7 +46,7 @@ app.get("/:idPotvrde", async function(req, res) {
       ciklus: stud.ciklus,
       tipStudenta: 'Redovan',
       smjer: odsjek.nazivOdsjeka,
-      tipStudija: 'BSc'
+      tipStudija: tip
     },
     detaljiOFakultetu: {
       dekan: 'V. prof. dr Samim Konjicija, dipl.ing.el.'

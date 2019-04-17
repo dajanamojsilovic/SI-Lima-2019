@@ -15,7 +15,7 @@ db.zahtjevZaPotvrdu = sequelize.import(__dirname+"/zahtjevZaPotvrdu.js");
 db.korisnik = sequelize.import(__dirname+"/korisnik.js");
 db.svrha = sequelize.import(__dirname+"/svrhaPotvrde.js");
 db.predmet = sequelize.import(__dirname+"/predmet.js");
-
+db.odsjek = sequelize.import(__dirname+"/odsjek.js");
 //definisanje veza
 //1:n
 db.korisnik.hasMany(db.zahtjevZaPotvrdu,{foreignKey:'idStudenta', as:"korisnici"});
